@@ -13,7 +13,7 @@ const core = require('@actions/core')
 
 module.exports = (app) => {
   app.on('push', async (context) => {
-    const { shouldDraft, configName, version, tag, name } = getInput()
+    const { shouldDraft, configName, version, tag, target, name } = getInput()
 
     const config = await getConfig({
       app,
@@ -58,6 +58,7 @@ module.exports = (app) => {
       mergedPullRequests: sortedMergedPullRequests,
       version,
       tag,
+      target,
       name,
       isPreRelease,
       shouldDraft,
@@ -93,6 +94,7 @@ function getInput({ config } = {}) {
       configName: core.getInput('config-name'),
       version: core.getInput('version') || undefined,
       tag: core.getInput('tag') || undefined,
+      target: core.getInput('target') || undefined,
       name: core.getInput('name') || undefined,
     }
   }
